@@ -10,6 +10,8 @@ Task::Task() {
     {
         id = nextId++; // Ensure unique ID assignment is thread-safe
     }
+    time = 0.0;
+    status = TaskStatus::READY;
 }
 
 // Destructor
@@ -27,4 +29,14 @@ void Task::update() {
     // Placeholder for task-specific functionality
     // Implement your task updating logic here.
     std::cout << "Task " << id << " updated." << std::endl;
+}
+
+// Getter for the task's status
+TaskStatus Task::getStatus() const {
+    return status;
+}
+
+// Setter for the task's status 
+void Task::setStatus(TaskStatus newStatus) {
+    status = newStatus;
 }

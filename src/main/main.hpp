@@ -8,6 +8,7 @@
 class MainProgram {
 private:
     std::vector<Task> tasks;
+    double endTime;
 
 public:
     void initialize(int numberOfTasks);
