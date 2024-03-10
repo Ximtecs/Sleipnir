@@ -1,4 +1,4 @@
-add_executable(ArrayTests.x StaticGPUtest.cpp)
+add_executable(ArrayTests.x ArrayTests.cpp)
 
 
 target_link_libraries(ArrayTests.x PRIVATE data_arrays_lib)
