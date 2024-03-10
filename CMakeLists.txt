@@ -9,6 +9,9 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 # Find OpenMP
 find_package(OpenMP REQUIRED)
 
+# Add the compiler flags for offloading
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fopenmp -foffload=-lm")
+
 # Since the executable will depend on these, they need to be included before the experiments
 add_subdirectory(src)
 add_subdirectory(experiments)
