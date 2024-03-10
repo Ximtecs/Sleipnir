@@ -3,13 +3,22 @@
 #include "../../src/main/main.hpp"
 
 int main() {
-    std::cout << "Running test1 for DISPATCH_CPP framework." << std::endl;
+    std::cout << "Running test1 for SLEIPNIR framework." << std::endl;
 
     MainProgram program;
+    program.initialize(10); // Initialize with 10 tasks
 
-    // Example usage of the components in a test scenario
-    program.run();
+    // Access and print the IDs of the tasks
+    for (const auto& task : program.getTasks()) {
+        std::cout << "Task ID: " << task.getId() << std::endl;
+    }
+
+
+    program.run(); // This will now also print the IDs of the initialized tasks
+
 
     std::cout << "Test completed." << std::endl;
+
     return 0;
 }
+

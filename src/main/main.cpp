@@ -1,12 +1,21 @@
 // main_program.cpp - Part of the DISPATCH_CPP framework
 #include "main.hpp"
-#include "task.hpp"
 
-// Example function definition
-void MainProgram::run() {
-    // Placeholder functionality for demonstration
-    // This function would be where the main program's logic is implemented.
-    Task task;
-    task.update();
+#include <iostream>
 
+// Initialize the tasks
+void MainProgram::initialize(int numberOfTasks) {
+    for (int i = 0; i < numberOfTasks; ++i) {
+        tasks.emplace_back(); // Utilize Task's constructor
+    }
 }
+
+const std::vector<Task>& MainProgram::getTasks() const {
+    return tasks;
+}
+
+// Existing run method (adjust if necessary)
+void MainProgram::run() {
+    std::cout << "Running the main program" << std::endl;
+}
+
