@@ -10,6 +10,13 @@ public:
     ~ArrayCPU() override;
     // Add a getSize function
     std::size_t getSize() const;
+
+    // Add operator[]
+    T& operator[](std::size_t index);
+    const T& operator[](std::size_t index) const;
+
+    // Override initValue
+    void initValue(T value) override;
 };
 
 

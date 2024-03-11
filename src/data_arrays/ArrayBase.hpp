@@ -10,6 +10,9 @@ public:
     virtual ~BaseArray() {} // Provide an empty definition for the destructor
     virtual std::size_t getSize() const = 0;
 
+    // Add initValue
+    virtual void initValue(T value) = 0;
+
 
 protected:
     std::size_t size_;
