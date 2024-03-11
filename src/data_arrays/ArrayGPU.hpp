@@ -14,7 +14,20 @@ public:
     std::size_t getSize() const override;
 
     // Override initValue
-    void initValue(T value) override;
+    void initValue(T value) override;    
+    
+    
+    // Add operator[]
+    T& operator[](std::size_t index);
+    const T& operator[](std::size_t index) const;
+
+
+    void syncHostToDevice();
+    void syncDeviceToHost();
+    T* getDevicePtr() const;
+
+protected:
+    T* data_gpu;
 };
 
 #endif // ARRAYGPU_HPP
