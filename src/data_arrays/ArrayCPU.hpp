@@ -9,7 +9,7 @@ public:
     ArrayCPU(std::size_t size);
     ~ArrayCPU() override;
     // Add a getSize function
-    std::size_t getSize() const;
+    std::size_t getSize() const override;
 
     // Add operator[]
     T& operator[](std::size_t index);

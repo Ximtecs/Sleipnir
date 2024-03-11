@@ -2,6 +2,7 @@
 #define ARRAYGPU_HPP
 
 #include "ArrayBase.hpp"
+#include <omp.h> // Include the OpenMP header
 
 template <typename T>
 class ArrayGPU : public BaseArray<T> {

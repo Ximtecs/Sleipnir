@@ -40,19 +40,19 @@ int main() {
 
 
 
-    int* data = static_cast<int*>(omp_target_alloc(size * sizeof(int), omp_get_default_device()));
+    //int* data = static_cast<int*>(omp_target_alloc(size * sizeof(int), omp_get_default_device()));
 
 
     // Start the timer
     auto startGPU = std::chrono::high_resolution_clock::now();
 
     // Initialize the array with a value
-    //arrayGPU.initValue(5);
+    arrayGPU.initValue(5);
 
-    #pragma omp target teams distribute parallel for is_device_ptr(data)
-    for (std::size_t i = 0; i < size; ++i) {
-        data[i] = 5; // Use the passed value for initialization
-    }
+    //#pragma omp target teams distribute parallel for is_device_ptr(data)
+    //for (std::size_t i = 0; i < size; ++i) {
+    //    data[i] = 5; // Use the passed value for initialization
+    //}
 
     
 

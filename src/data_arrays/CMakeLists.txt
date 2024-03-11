@@ -1,6 +1,8 @@
 set(DATA_ARRAYS_SOURCES
     ArrayCPU.cpp
     ArrayCPU.hpp
+    ArrayGPU.cpp
+    ArrayGPU.hpp
     ArrayBase.hpp
 )
 

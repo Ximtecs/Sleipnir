@@ -1,5 +1,4 @@
 #include "ArrayGPU.hpp"
-#include <omp.h> // Include the OpenMP header
 
 template <typename T>
 ArrayGPU<T>::ArrayGPU(std::size_t size) : BaseArray<T>(size) {
