@@ -16,7 +16,7 @@ int main() {
     std::cout << "Default OpenMP device: " << defaultDevice << std::endl;
 
 
-    int size = 1000000; 
+    int size = 10000000; 
 
     // Create a StaticArrayCPU of size 
     ArrayCPU<int> array(size);
@@ -63,7 +63,11 @@ int main() {
 
 
 
-    std::this_thread::sleep_for(std::chrono::seconds(10));
+    std::cout << "arrayGPU[1] before sync = " << arrayGPU[1] << std::endl;
+    arrayGPU.syncDeviceToHost();
+    std::cout << "arrayGPU[1] after sync = " << arrayGPU[1] << std::endl;
+
+    //std::this_thread::sleep_for(std::chrono::seconds(10));
 
     return 0;
 }
