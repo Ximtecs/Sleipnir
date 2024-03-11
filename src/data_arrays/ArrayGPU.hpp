@@ -22,12 +22,23 @@ public:
     const T& operator[](std::size_t index) const;
 
 
+    // Synchronization functions
     void syncHostToDevice();
     void syncDeviceToHost();
+
+    // Asynchronous functions
+    void syncHostToDeviceAsync();
+    void syncDeviceToHostAsync();
+    //void waitForAsyncOperations(); // Wait for asynchronous operations to complete
+
+
     T* getDevicePtr() const;
+
 
 protected:
     T* data_gpu;
+    omp_event_handle_t event; // Event handle for managing dependencies
+
 };
 
 #endif // ARRAYGPU_HPP

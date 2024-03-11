@@ -64,8 +64,12 @@ int main() {
 
 
     std::cout << "arrayGPU[1] before sync = " << arrayGPU[1] << std::endl;
-    arrayGPU.syncDeviceToHost();
+    //arrayGPU.syncDeviceToHost();
+    arrayGPU.syncDeviceToHostAsync();
+    
     std::cout << "arrayGPU[1] after sync = " << arrayGPU[1] << std::endl;
+
+    
 
     //std::this_thread::sleep_for(std::chrono::seconds(10));
 

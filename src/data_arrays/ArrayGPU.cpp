@@ -59,6 +59,21 @@ void ArrayGPU<T>::syncDeviceToHost() {
     omp_target_memcpy(this->data_, this->data_gpu, this->size_ * sizeof(T), 0, 0, omp_get_initial_device(), omp_get_default_device());
 }
 
+
+template <typename T>
+void ArrayGPU<T>::syncHostToDeviceAsync() {
+    // Asynchronous copy from host to device
+    omp_target_memcpy_async(this->data_gpu, this->data_, this->size_ * sizeof(T), 0, 0, omp_get_default_device(), omp_get_initial_device(), this->event,NULL);
+}
+
+template <typename T>
+void ArrayGPU<T>::syncDeviceToHostAsync() {
+    // Asynchronous copy from device to host
+    omp_target_memcpy_async(this->data_, this->data_gpu, this->size_ * sizeof(T), 0, 0, omp_get_initial_device(), omp_get_default_device(), this->event,NULL);
+}
+
+
+
 template <typename T>
 T* ArrayGPU<T>::getDevicePtr() const {
     // Return the device pointer
