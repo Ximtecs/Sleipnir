@@ -25,16 +25,20 @@ int Task::getId() const {
 
 // Implementation of the updated function
 void Task::update() {
+    Timing::start("task_update"); // Start timing the task update
     // Placeholder for task-specific functionality
     // Implement your task updating logic here.
+
     this->time += this->dt; // Increment the time variable by the time step   
     std::cout << "Task " << id << " updated to time " << this->time << std::endl;
+
 
 
     if (this->time >= this->endTime) {
         status = TaskStatus::FINISHED;
         std::cout << "Task " << id << " has finished" << std::endl;
     }
+    Timing::end("task_update"); // End timing the task update
 }
 
 // Getter for the task's status

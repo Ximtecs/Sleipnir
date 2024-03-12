@@ -3,6 +3,7 @@
 
 #include <omp.h> // Include OpenMP header for multithreading support
 #include <iostream>
+#include <timing.hpp>
 
 
 enum TaskStatus {

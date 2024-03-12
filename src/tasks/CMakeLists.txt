@@ -9,7 +9,7 @@ add_library(task_lib ${TASK_SOURCES})
 
 
 target_include_directories(task_lib PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
-target_link_libraries(task_lib PUBLIC data_arrays_lib)
+target_link_libraries(task_lib PUBLIC data_arrays_lib timing_lib)
 
 
 # Link with OpenMP
