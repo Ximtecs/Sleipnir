@@ -11,6 +11,8 @@ Task::Task() {
         id = nextId++; // Ensure unique ID assignment is thread-safe
     }
     time = 0.0;
+    dt = 0.1;
+    endTime = 1.0;
     status = TaskStatus::READY;
 }
 
@@ -28,7 +30,14 @@ int Task::getId() const {
 void Task::update() {
     // Placeholder for task-specific functionality
     // Implement your task updating logic here.
-    std::cout << "Task " << id << " updated." << std::endl;
+    this->time += this->dt; // Increment the time variable by the time step   
+    std::cout << "Task " << id << " updated to time " << this->time << std::endl;
+
+
+    if (this->time >= this->endTime) {
+        status = TaskStatus::FINISHED;
+        std::cout << "Task " << id << " has finished" << std::endl;
+    }
 }
 
 // Getter for the task's status

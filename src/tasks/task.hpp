@@ -11,6 +11,7 @@ class Task {
 private:
     static int nextId; // Static variable to track the next ID
     int id; // Unique ID for each task instance
+    double endTime;
     double time; // Time variable
     double dt; // Time step
     TaskStatus status; // Task status
