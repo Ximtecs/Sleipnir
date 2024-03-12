@@ -10,7 +10,7 @@ int main() {
 
     // Access and print the IDs of the tasks
     for (const auto& task : program.getTasks()) {
-        std::cout << "Task ID: " << task.getId() << std::endl;
+        std::cout << "Task ID: " << task->getId() << std::endl;
     }
 
 
