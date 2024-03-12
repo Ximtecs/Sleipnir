@@ -10,7 +10,6 @@ int main() {
     // Get the number of OpenMP devices
     int numDevices = omp_get_num_devices();
     std::cout << "Number of OpenMP devices: " << numDevices << std::endl;
-
     // Get the default OpenMP device
     int defaultDevice = omp_get_default_device();
     std::cout << "Default OpenMP device: " << defaultDevice << std::endl;
@@ -40,21 +39,11 @@ int main() {
 
 
 
-    //int* data = static_cast<int*>(omp_target_alloc(size * sizeof(int), omp_get_default_device()));
-
 
     // Start the timer
     auto startGPU = std::chrono::high_resolution_clock::now();
 
-    // Initialize the array with a value
     arrayGPU.initValue(5);
-
-    //#pragma omp target teams distribute parallel for is_device_ptr(data)
-    //for (std::size_t i = 0; i < size; ++i) {
-    //    data[i] = 5; // Use the passed value for initialization
-    //}
-
-    
 
     // Stop the timer and calculate the elapsed time
     auto stopGPU = std::chrono::high_resolution_clock::now();
@@ -62,16 +51,29 @@ int main() {
     std::cout << "Time to update GPU array: " << elapsedGPU.count() << " seconds\n";
 
 
+    int* gpu_data_ptr = arrayGPU.getDevicePtr();
+
+    startGPU = std::chrono::high_resolution_clock::now();
+    #pragma omp target teams distribute parallel for is_device_ptr(gpu_data_ptr)
+    for (int i = 0; i < size; i++){ 
+        gpu_data_ptr[i] = gpu_data_ptr[i] * i;
+    }
+    stopGPU = std::chrono::high_resolution_clock::now();
+    elapsedGPU = stopGPU - startGPU;
+    std::cout << "Time to update GPU array: " << elapsedGPU.count() << " seconds\n";
+    
+
 
     std::cout << "arrayGPU[1] before sync = " << arrayGPU[1] << std::endl;
+    std::cout << "arrayGPU[2] before sync = " << arrayGPU[2] << std::endl;
+
     //arrayGPU.syncDeviceToHost();
     arrayGPU.syncDeviceToHostAsync();
     
     std::cout << "arrayGPU[1] after sync = " << arrayGPU[1] << std::endl;
+    std::cout << "arrayGPU[2] after sync = " << arrayGPU[2] << std::endl;
 
-    
 
-    //std::this_thread::sleep_for(std::chrono::seconds(10));
 
     return 0;
 }
