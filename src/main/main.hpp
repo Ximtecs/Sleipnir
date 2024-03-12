@@ -3,6 +3,7 @@
 #define MAIN_PROGRAM_HPP
 
 #include "task.hpp"
+#include "timing.hpp"
 #include <deque>
 #include <mutex>
 #include <thread>

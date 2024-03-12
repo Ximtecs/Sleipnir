@@ -2,6 +2,7 @@
 #include "main.hpp"
 
 #include <iostream>
+#include <omp.h>
 
 // Initialize the tasks
 void MainProgram::initialize(int numberOfTasks) {
@@ -26,7 +27,7 @@ const std::deque<Task*>& MainProgram::getTasks() const {
  * This function is responsible for executing the tasks in parallel until all tasks are finished.
  */
 void MainProgram::run() {
-
+    Timing::start("main_program");
 //TODO add timing module
     int numThreads = omp_get_num_threads();
     this->status = RUNNING;
@@ -87,4 +88,5 @@ void MainProgram::run() {
             }
         }
     }
+    Timing::end("main_program");
 }
