@@ -11,12 +11,23 @@ void MainProgram::initialize(int numberOfTasks) {
     }
 }
 
+void MainProgram::pushTask(Task* task) {
+    tasks.push_back(task);
+    tasksCreated++;
+}
+
 
 const std::deque<Task*>& MainProgram::getTasks() const {
     return tasks;
 }
 
+/**
+ * Runs the main program.
+ * This function is responsible for executing the tasks in parallel until all tasks are finished.
+ */
 void MainProgram::run() {
+
+//TODO add timing module
     int numThreads = omp_get_num_threads();
     this->status = RUNNING;
     std::cout << "Running the main program" << std::endl;
@@ -42,12 +53,12 @@ void MainProgram::run() {
                         taskPtr->update();
 
                         bool taskFinished = false;
-                        #pragma omp critical (update_finished_status)
-                        {
-                            if (taskPtr->getStatus() == FINISHED) {
+                        if (taskPtr->getStatus() == FINISHED) {
+                            #pragma omp critical (update_finished_status)
+                            {
                                 tasksFinished++;
-                                taskFinished = true;
                             }
+                            taskFinished = true;
                         }
 
                         if (!taskFinished) {
@@ -59,17 +70,19 @@ void MainProgram::run() {
                             delete taskPtr; // Clean up finished task
                         }
 
-                        // Update program status if all tasks are finished
-                        #pragma omp critical (update_program_status)
-                        {
-                            if (tasksFinished == tasksCreated) {
-                                status = COMPLETED;
-                            }
-                        }
+
                     }
                 } else {
                     // Small sleep to prevent busy waiting if all tasks are currently being processed
                     std::this_thread::sleep_for(std::chrono::milliseconds(10));
+
+                    // Update program status if all tasks are finished
+                    #pragma omp critical (update_program_status)
+                    {
+                        if (tasksFinished == tasksCreated) {
+                            status = COMPLETED;
+                        }
+                    }
                 }
             }
         }

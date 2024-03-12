@@ -25,6 +25,8 @@ private:
 
 public:
     void initialize(int numberOfTasks);
+    void pushTask(Task* task);
+
     const std::deque<Task*>& getTasks() const; // Added this line
 
     void run();
