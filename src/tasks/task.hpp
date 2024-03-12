@@ -1,6 +1,10 @@
 #ifndef TASK_HPP
 #define TASK_HPP
 
+#include <omp.h> // Include OpenMP header for multithreading support
+#include <iostream>
+
+
 enum TaskStatus {
     READY,
     UPDATING,
@@ -22,7 +26,7 @@ public:
     ~Task(); // Destructor
 
     int getId() const; // Getter for the task's ID
-    void update(); // Renamed function
+    virtual void update(); // Renamed function
     TaskStatus getStatus() const; // Getter for the task's status
     void setStatus(TaskStatus newStatus); // Setter for the task's status
 

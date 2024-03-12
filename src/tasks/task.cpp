@@ -1,7 +1,4 @@
 #include "task.hpp"
-#include <omp.h> // Include OpenMP header for multithreading support
-#include <iostream>
-
 int Task::nextId = 0; // Initialize static variable
 
 // Constructor
