@@ -1,5 +1,7 @@
 #include "ArrayGPU.hpp"
 
+
+
 template <typename T>
 ArrayGPU<T>::ArrayGPU(std::size_t size) : BaseArray<T>(size) {
     // Allocate memory on the CPU using new
@@ -7,6 +9,7 @@ ArrayGPU<T>::ArrayGPU(std::size_t size) : BaseArray<T>(size) {
 
     // Allocate memory on the GPU using OpenMP
     this->data_gpu = static_cast<T*>(omp_target_alloc(size * sizeof(T), omp_get_default_device()));
+    this->size_ = size;
 }
 
 template <typename T>
@@ -28,7 +31,8 @@ template <typename T>
 void ArrayGPU<T>::initValue(T value) {
     T* data_gpu = this->data_gpu;
     std::size_t size = this->size_;
-    #pragma omp target teams distribute parallel for is_device_ptr(data_gpu)
+
+    #pragma omp target teams distribute parallel for is_device_ptr(data_gpu) firstprivate(value) shared(data_gpu, size) default(none) 
     for (std::size_t i = 0; i < size; ++i) {
         data_gpu[i] = value;
     }
@@ -60,17 +64,17 @@ void ArrayGPU<T>::syncDeviceToHost() {
 }
 
 
-template <typename T>
-void ArrayGPU<T>::syncHostToDeviceAsync() {
-    // Asynchronous copy from host to device
-    omp_target_memcpy_async(this->data_gpu, this->data_, this->size_ * sizeof(T), 0, 0, omp_get_default_device(), omp_get_initial_device(), this->event,NULL);
-}
-
-template <typename T>
-void ArrayGPU<T>::syncDeviceToHostAsync() {
-    // Asynchronous copy from device to host
-    omp_target_memcpy_async(this->data_, this->data_gpu, this->size_ * sizeof(T), 0, 0, omp_get_initial_device(), omp_get_default_device(), this->event,NULL);
-}
+//template <typename T>
+//void ArrayGPU<T>::syncHostToDeviceAsync() {
+//    // Asynchronous copy from host to device
+//    omp_target_memcpy_async(this->data_gpu, this->data_, this->size_ * sizeof(T), 0, 0, omp_get_default_device(), omp_get_initial_device(), this->event,NULL);
+//}
+//
+//template <typename T>
+//void ArrayGPU<T>::syncDeviceToHostAsync() {
+//    // Asynchronous copy from device to host
+//    omp_target_memcpy_async(this->data_, this->data_gpu, this->size_ * sizeof(T), 0, 0, omp_get_initial_device(), omp_get_default_device(), this->event,NULL);
+//}
 
 
 
@@ -83,3 +87,5 @@ T* ArrayGPU<T>::getDevicePtr() const {
 
 // Explicit instantiation
 template class ArrayGPU<int>;
+template class ArrayGPU<float>;
+template class ArrayGPU<double>;

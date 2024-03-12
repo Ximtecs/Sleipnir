@@ -27,8 +27,8 @@ public:
     void syncDeviceToHost();
 
     // Asynchronous functions
-    void syncHostToDeviceAsync();
-    void syncDeviceToHostAsync();
+    //void syncHostToDeviceAsync();
+    //void syncDeviceToHostAsync();
     //void waitForAsyncOperations(); // Wait for asynchronous operations to complete
 
 
@@ -37,7 +37,7 @@ public:
 
 protected:
     T* data_gpu;
-    omp_event_handle_t event; // Event handle for managing dependencies
+   // omp_event_handle_t event; // Event handle for managing dependencies
 
 };
 
