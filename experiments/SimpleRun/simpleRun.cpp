@@ -3,6 +3,7 @@
 #include "patch.hpp"
 #include "main.hpp"
 
+
 int main() {
     std::cout << "Running simpleRun for SLEIPNIR framework." << std::endl;
 
@@ -19,6 +20,8 @@ int main() {
     
     program.run(); // This will now also print the IDs of the initialized tasks
 
+
+    Timing::printResults(); // Print the timing results
 
     return 0;
 }
