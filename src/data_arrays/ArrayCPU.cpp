@@ -38,3 +38,5 @@ void ArrayCPU<T>::initValue(T value) {
 
 // Explicit instantiation
 template class ArrayCPU<int>;
+template class ArrayCPU<float>;
+template class ArrayCPU<double>;
