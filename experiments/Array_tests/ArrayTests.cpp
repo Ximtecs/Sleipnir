@@ -67,8 +67,8 @@ int main() {
     std::cout << "arrayGPU[1] before sync = " << arrayGPU[1] << std::endl;
     std::cout << "arrayGPU[2] before sync = " << arrayGPU[2] << std::endl;
 
-    //arrayGPU.syncDeviceToHost();
-    arrayGPU.syncDeviceToHostAsync();
+    arrayGPU.syncDeviceToHost();
+    //arrayGPU.syncDeviceToHostAsync();
     
     std::cout << "arrayGPU[1] after sync = " << arrayGPU[1] << std::endl;
     std::cout << "arrayGPU[2] after sync = " << arrayGPU[2] << std::endl;
