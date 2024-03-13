@@ -10,7 +10,7 @@ int main() {
     MainProgram program;
     //program.initialize(10); // Initialize with 10 tasks
 
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < 100; i++) {
         Patch* task = new Patch();
         task->SetPatchSize(10000000);
         task->AllocateMemory();
