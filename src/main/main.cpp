@@ -29,14 +29,17 @@ const std::deque<Task*>& MainProgram::getTasks() const {
 void MainProgram::run() {
     Timing::start("main_program");
 //TODO add timing module
-    int numThreads = omp_get_num_threads();
-    this->status = RUNNING;
-    std::cout << "Running the main program" << std::endl;
+
 
     #pragma omp parallel
     {
         #pragma omp single
         {
+            //omp_set_num_threads(4);
+            int numThreads = omp_get_num_threads();
+            this->status = RUNNING;
+            std::cout << "Running the main program with " << numThreads << " threads" << std::endl;
+
             while (status == RUNNING) {
                 Task* taskPtr = nullptr;
 
