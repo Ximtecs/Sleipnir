@@ -77,8 +77,9 @@ void MainProgram::run() {
 
                     }
                 } else {
-                    // Small sleep to prevent busy waiting if all tasks are currently being processed
-                    std::this_thread::sleep_for(std::chrono::milliseconds(10));
+                    // Wait for all tasks to finish
+                    //TODO this may impact performance now since thread0 has very little work to do
+                    #pragma omp taskwait
 
                     // Update program status if all tasks are finished
                     #pragma omp critical (update_program_status)
