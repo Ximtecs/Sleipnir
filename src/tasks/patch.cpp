@@ -4,7 +4,7 @@
 void Patch::update() {
     Timing::start("patch_update"); // Start timing the patch update
     // Custom behavior for Patch before calling Task's update
-    std::cout << "Patch with ID " << getId() << " is updating." << std::endl;
+    //std::cout << "Patch with ID " << getId() << " is updating." << std::endl;
     
 
 
@@ -17,9 +17,12 @@ void Patch::update() {
     }
     Timing::end("patch_update_kernel"); // End timing the patch update kernel
 #else
+    Timing::start("patch_update_loop"); // Start timing the patch update kernel
     for (int i = 0; i < patchSize; i++) {
         (*mem)[i] = (*mem)[i] + 1;
     }
+    Timing::end("patch_update_loop"); // End timing the patch update kernel
+
 #endif
 
     // Call the base class update method
@@ -44,11 +47,11 @@ void Patch::FreeMemory() {
 
 void Patch::AllocateMemory() {
 #ifdef USE_GPU
-    printf("Allocating memory on the GPU\n");
+    //printf("Allocating memory on the GPU\n");
     mem = new ArrayGPU<float>(patchSize);
     mem->initValue(0);
 #else
-    printf("Allocating memory on the CPU\n");
+    //printf("Allocating memory on the CPU\n");
     mem = new ArrayCPU<float>(patchSize);
     mem->initValue(0);   
 #endif

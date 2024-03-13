@@ -30,13 +30,13 @@ void Task::update() {
     // Implement your task updating logic here.
 
     this->time += this->dt; // Increment the time variable by the time step   
-    std::cout << "Task " << id << " updated to time " << this->time << std::endl;
+    //std::cout << "Task " << id << " updated to time " << this->time << std::endl;
 
 
 
     if (this->time >= this->endTime) {
         status = TaskStatus::FINISHED;
-        std::cout << "Task " << id << " has finished" << std::endl;
+        //std::cout << "Task " << id << " has finished" << std::endl;
     }
     Timing::end("task_update"); // End timing the task update
 }
