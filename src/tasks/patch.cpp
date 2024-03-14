@@ -39,6 +39,18 @@ int Patch::GetPatchSize() {
 
 void Patch::SetPatchSize(int size) {
     patchSize = size;
+    this->patchSize = size;
+    this->dimensionality = 1;
+}
+
+void Patch::SetPatchSize(const std::vector<std::size_t>& dimensions) {
+    patchSize = 1;
+    for (std::size_t i = 0; i < dimensions.size(); i++) {
+        patchSize *= dimensions[i];
+    }
+    this->patchSize = patchSize;
+    this->dim_size = dimensions;
+    this->dimensionality = dimensions.size();
 }
 
 void Patch::FreeMemory() {
@@ -47,12 +59,20 @@ void Patch::FreeMemory() {
 
 void Patch::AllocateMemory() {
 #ifdef USE_GPU
-    //printf("Allocating memory on the GPU\n");
+    if (dimensionality == 1) {
+        mem = new ArrayGPU<float>(patchSize);
+    } else {
+        mem = new ArrayGPU<float>(dim_size);
+    }
     mem = new ArrayGPU<float>(patchSize);
     mem->initValue(0);
 #else
-    //printf("Allocating memory on the CPU\n");
-    mem = new ArrayCPU<float>(patchSize);
+    if (dimensionality == 1) {
+        mem = new ArrayCPU<float>(patchSize);
+    } else {
+        mem = new ArrayCPU<float>(dim_size);
+    }
+
     mem->initValue(0);   
 #endif
 }
