@@ -6,14 +6,17 @@ ArrayCPU<T>::ArrayCPU(std::size_t size) : BaseArray<T>(size) {
 }
 
 template <typename T>
-ArrayCPU<T>::~ArrayCPU() {
-    delete[] this->data_;
+ArrayCPU<T>::ArrayCPU(const std::vector<std::size_t>& dimensions) : BaseArray<T>(dimensions) {
+    std::size_t size = BaseArray<T>::calculateTotalSize(dimensions);
+    this->data_ = new T[size];
+    this->size_ = size;
+    this->dim_size = dimensions;
+    this->dimensionality = dimensions.size();
 }
 
-// Add a definition for the getSize function
 template <typename T>
-std::size_t ArrayCPU<T>::getSize() const {
-    return this->size_;
+ArrayCPU<T>::~ArrayCPU() {
+    delete[] this->data_;
 }
 
 // Add definitions for operator[]

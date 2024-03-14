@@ -7,9 +7,9 @@ template <typename T>
 class ArrayCPU : public BaseArray<T> {
 public:
     ArrayCPU(std::size_t size);
+    ArrayCPU(const std::vector<std::size_t>& dimensions);
+
     ~ArrayCPU() override;
-    // Add a getSize function
-    std::size_t getSize() const override;
 
     // Add operator[]
     T& operator[](std::size_t index);

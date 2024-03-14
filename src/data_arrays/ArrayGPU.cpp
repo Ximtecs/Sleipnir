@@ -13,18 +13,27 @@ ArrayGPU<T>::ArrayGPU(std::size_t size) : BaseArray<T>(size) {
 }
 
 template <typename T>
+ArrayGPU<T>::ArrayGPU(const std::vector<std::size_t>& dimensions) : BaseArray<T>(dimensions) {
+    // Calculate the total size
+    std::size_t size = BaseArray<T>::calculateTotalSize(dimensions);
+
+    // Allocate memory on the CPU using new
+    this->data_ = new T[size];
+
+    // Allocate memory on the GPU using OpenMP
+    this->data_gpu = static_cast<T*>(omp_target_alloc(size * sizeof(T), omp_get_default_device()));
+    this->size_ = size;
+    this->dim_size = dimensions;
+    this->dimensionality = dimensions.size();
+}
+
+template <typename T>
 ArrayGPU<T>::~ArrayGPU() {
     // Free memory on the CPU using delete[]
     delete[] this->data_;
 
     // Free memory on the GPU using OpenMP
     omp_target_free(this->data_gpu, omp_get_default_device());
-}
-
-// Add a definition for the getSize function
-template <typename T>
-std::size_t ArrayGPU<T>::getSize() const {
-    return this->size_;
 }
 
 template <typename T>

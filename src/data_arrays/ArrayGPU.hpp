@@ -8,10 +8,9 @@ template <typename T>
 class ArrayGPU : public BaseArray<T> {
 public:
     ArrayGPU(std::size_t size);
-    ~ArrayGPU() override;
+    ArrayGPU(const std::vector<std::size_t>& dimensions);
 
-    // Override the getSize function
-    std::size_t getSize() const override;
+    ~ArrayGPU() override;
 
     // Override initValue
     void initValue(T value) override;    
