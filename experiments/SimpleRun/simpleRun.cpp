@@ -12,7 +12,9 @@ int main() {
 
     for (int i = 0; i < 100; i++) {
         Patch* task = new Patch();
-        task->SetPatchSize(10000000);
+        //task->SetPatchSize(1000000);
+        task->SetPatchSize({100, 100, 100});
+
         task->AllocateMemory();
         program.pushTask(task);
     }
